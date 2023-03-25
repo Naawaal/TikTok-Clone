@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_clone/model/users.dart';
 import 'package:tiktok_clone/view/screens/auth/login_screen.dart';
+import 'package:tiktok_clone/view/screens/homescreen.dart';
 
 class AuthController extends GetxController {
   final auth = FirebaseAuth.instance;
@@ -39,14 +40,17 @@ class AuthController extends GetxController {
   final loginEmailController = TextEditingController().obs;
   final loginPasswordController = TextEditingController().obs;
 
-  Future<void> loginUser() async {
+  Future<String> loginUser() async {
     final loginEmail = loginEmailController.value.text.trim();
     final loginPassword = loginPasswordController.value.text.trim();
 
     try {
       if (loginEmail.isNotEmpty || loginPassword.isNotEmpty) {
         if (!loginEmail.isEmail) {
-        } else if (loginPassword.length <= 5) {}
+          Get.snackbar("Error", 'please enter valid email');
+        } else if (loginPassword.length <= 5) {
+          Get.snackbar("Error", 'please enter 6 length email');
+        }
       } else {
         await auth.signInWithEmailAndPassword(
           email: loginEmail,
@@ -57,7 +61,7 @@ class AuthController extends GetxController {
       debugPrint('error: =${e.toString()}');
     }
 
-    return loginUser();
+    return auth.currentUser!.uid;
   }
 
   //Todo: Signup Controller
@@ -79,20 +83,20 @@ class AuthController extends GetxController {
           email: signupEmail,
           password: signupPassword,
         );
-        Get.off(() => LoginScreen());
-
         final donwloadUrl = await _uploadImage();
-
         myUser user = myUser(
           name: signupName,
           email: signupEmail,
           profilePhoto: donwloadUrl,
           uid: auth.currentUser!.uid,
         );
+
         firestore
             .collection('users')
             .doc(auth.currentUser!.uid)
             .set(user.toJson());
+
+        Get.off(() => LoginScreen());
       } else {
         Get.snackbar("Error Occured", 'please enter all the required field');
       }
@@ -107,10 +111,28 @@ class AuthController extends GetxController {
     final ref =
         storage.ref().child('profile_pics').child(auth.currentUser!.uid);
     final uploadTask = ref.putFile(image!);
-    final snapshot = await uploadTask.whenComplete(() => null);
+    TaskSnapshot snapshot = await uploadTask;
     final url = await snapshot.ref.getDownloadURL();
-    print('Image uploaded successfully. URL: $url');
 
     return url;
+  }
+
+  //Todo: User State Persistence
+  late Rx<User?> _user;
+
+  @override
+  void onReady() {
+    super.onReady();
+    _user = Rx<User?>(auth.currentUser);
+    _user.bindStream(auth.authStateChanges());
+    ever(_user, _setInitialView);
+  }
+
+  _setInitialView(User? user) {
+    if (user == null) {
+      Get.offAll(() => LoginScreen());
+    } else {
+      Get.offAll(() => const HomeScreen());
+    }
   }
 }

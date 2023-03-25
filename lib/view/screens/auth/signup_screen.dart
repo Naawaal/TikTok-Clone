@@ -31,25 +31,20 @@ class SignupScreen extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              GestureDetector(
-                onTap: () {
-                  authController.pickImage();
-                },
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    const CircleAvatar(
-                      backgroundColor: Colors.deepPurple,
-                      radius: 60,
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.camera_rounded,
-                      ),
-                    ),
-                  ],
-                ),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  const CircleAvatar(
+                    backgroundColor: Colors.deepPurple,
+                    radius: 60,
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      authController.pickImage();
+                    },
+                    icon: const Icon(Icons.camera_rounded),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 15,
