@@ -15,59 +15,86 @@ class SignupScreen extends StatelessWidget {
       body: Container(
         padding: const EdgeInsets.all(12),
         alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Hero(
-              tag: 'appLogo',
-              child: Image.asset(
-                "assets/png/tiktok.png",
-                width: 150,
-                height: 150,
-                fit: BoxFit.cover,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Hero(
+                tag: 'appLogo',
+                child: Image.asset(
+                  "assets/png/tiktok.png",
+                  width: 150,
+                  height: 150,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Obx(
-              () => TextInputField(
-                controller: authController.signupNameController.value,
-                icon: Icons.person_2_rounded,
-                bool: false,
-                labelText: 'Name',
+              const SizedBox(
+                height: 15,
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Obx(
-              () => TextInputField(
-                controller: authController.signupEmailController.value,
-                icon: Icons.email_rounded,
-                bool: false,
-                labelText: 'Email',
+              GestureDetector(
+                onTap: () {
+                  authController.pickImage();
+                },
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    const CircleAvatar(
+                      backgroundColor: Colors.deepPurple,
+                      radius: 60,
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.camera_rounded,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Obx(
-              () => TextInputField(
-                controller: authController.signupPasswordController.value,
-                icon: Icons.password_rounded,
-                bool: authController.isObscureText.value,
-                labelText: 'Password',
+              const SizedBox(
+                height: 15,
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Button(
-              onPressed: () {},
-              text: 'Signup',
-            ),
-          ],
+              Obx(
+                () => TextInputField(
+                  controller: authController.signupNameController.value,
+                  icon: Icons.person_2_rounded,
+                  bool: false,
+                  labelText: 'Name',
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Obx(
+                () => TextInputField(
+                  controller: authController.signupEmailController.value,
+                  icon: Icons.email_rounded,
+                  bool: false,
+                  labelText: 'Email',
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Obx(
+                () => TextInputField(
+                  controller: authController.signupPasswordController.value,
+                  icon: Icons.password_rounded,
+                  bool: authController.isObscureText.value,
+                  labelText: 'Password',
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Button(
+                onPressed: () {
+                  authController.signupUser();
+                },
+                text: 'Signup',
+              ),
+            ],
+          ),
         ),
       ),
     );

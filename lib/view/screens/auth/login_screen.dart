@@ -73,7 +73,9 @@ class LoginScreen extends StatelessWidget {
               height: 10,
             ),
             Button(
-              onPressed: () {},
+              onPressed: () {
+                authController.loginUser();
+              },
               text: 'Login',
             ),
             const SizedBox(
