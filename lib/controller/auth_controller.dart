@@ -3,12 +3,10 @@ import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   RxBool isObscureText = true.obs;
-
   //Todo: Show & Hide password
 
   void showAndHidePassword() {
     isObscureText.value = !isObscureText.value;
-    print(isObscureText);
   }
 
   //Todo: Login Controller

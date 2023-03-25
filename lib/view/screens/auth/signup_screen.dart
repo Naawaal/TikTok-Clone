@@ -18,37 +18,54 @@ class SignupScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Login Screen'),
+            Hero(
+              tag: 'appLogo',
+              child: Image.asset(
+                "assets/png/tiktok.png",
+                width: 150,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Obx(
+              () => TextInputField(
+                controller: authController.signupNameController.value,
+                icon: Icons.person_2_rounded,
+                bool: false,
+                labelText: 'Name',
+              ),
+            ),
             const SizedBox(
               height: 10,
             ),
-            TextInputField(
-              controller: authController.signupNameController.value,
-              icon: Icons.email_rounded,
-              labelText: 'Name',
+            Obx(
+              () => TextInputField(
+                controller: authController.signupEmailController.value,
+                icon: Icons.email_rounded,
+                bool: false,
+                labelText: 'Email',
+              ),
             ),
             const SizedBox(
               height: 10,
             ),
-            TextInputField(
-              controller: authController.signupEmailController.value,
-              icon: Icons.email_rounded,
-              labelText: 'Email',
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextInputField(
-              controller: authController.signupPasswordController.value,
-              icon: Icons.password_rounded,
-              labelText: 'Password',
+            Obx(
+              () => TextInputField(
+                controller: authController.signupPasswordController.value,
+                icon: Icons.password_rounded,
+                bool: authController.isObscureText.value,
+                labelText: 'Password',
+              ),
             ),
             const SizedBox(
               height: 10,
             ),
             Button(
               onPressed: () {},
-              text: 'Login',
+              text: 'Signup',
             ),
           ],
         ),
