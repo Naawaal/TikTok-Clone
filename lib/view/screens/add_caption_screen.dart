@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tiktok_clone/view/screens/homescreen.dart';
 import 'package:tiktok_clone/view/widgets/textinputfield.dart';
 import 'package:video_player/video_player.dart';
 
@@ -63,7 +65,27 @@ class _AddCaptionScreenState extends State<AddCaptionScreen> {
                   labelText: 'Song Name',
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 05,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton.icon(
+                      onPressed: () {
+                        Get.offAll(const HomeScreen());
+                      },
+                      icon: const Icon(Icons.cancel_outlined),
+                      label: const Text("Cancel"),
+                    ),
+                    const SizedBox(
+                      height: 05,
+                    ),
+                    TextButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.upload_file_rounded),
+                      label: const Text("Upload"),
+                    ),
+                  ],
                 ),
               ],
             ),
