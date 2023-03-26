@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/const/color_const.dart';
+import 'package:tiktok_clone/view/screens/add_video.dart';
 import 'package:tiktok_clone/view/widgets/custom_add_item.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,15 +13,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int pageId = 0;
 
-  List pageIndex = ['Home', 'Search', 'Upload Video', 'Messages', 'Profile'];
+  List<Widget> pageIndex = [
+    const Center(child: Text('Home')),
+    const Center(child: Text('Search')),
+    const AddVideoScreen(),
+    const Center(child: Text('Messages')),
+    const Center(child: Text('Profile')),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(
-          pageIndex[pageId],
-        ),
-      ),
+      body: pageIndex[pageId],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: pageId,
         type: BottomNavigationBarType.fixed,
