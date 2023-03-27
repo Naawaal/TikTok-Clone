@@ -11,9 +11,9 @@ class AddVideoScreen extends StatelessWidget {
   Future<void> pickVideo() async {
     final video = await ImagePicker().pickVideo(source: ImageSource.gallery);
     if (video != null) {
-      Get.snackbar('Video Selected', video.name);
+      Get.snackbar('Video Selected', video.path);
       Get.to(
-          AddCaptionScreen(videoFile: File(video.path), videoPath: video.name));
+          AddCaptionScreen(videoFile: File(video.path), videoPath: video.path));
     } else {
       Get.snackbar('Error Occured ', 'Please Select Proper Video File');
     }
@@ -22,9 +22,9 @@ class AddVideoScreen extends StatelessWidget {
   Future<void> pickCameraVideo() async {
     final video = await ImagePicker().pickVideo(source: ImageSource.camera);
     if (video != null) {
-      Get.snackbar('Video Selected', video.name);
+      Get.snackbar('Video Selected', video.path);
       Get.to(
-          AddCaptionScreen(videoFile: File(video.path), videoPath: video.name));
+          AddCaptionScreen(videoFile: File(video.path), videoPath: video.path));
     } else {
       Get.snackbar('Error Occured ', 'Please Capture Proper Video ');
     }

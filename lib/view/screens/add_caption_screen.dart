@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tiktok_clone/controller/video_upload_controller.dart';
 import 'package:tiktok_clone/view/screens/homescreen.dart';
 import 'package:tiktok_clone/view/widgets/textinputfield.dart';
 import 'package:video_player/video_player.dart';
@@ -19,6 +20,8 @@ late VideoPlayerController videoPlayerController;
 
 final TextEditingController musicController = TextEditingController();
 final TextEditingController captionController = TextEditingController();
+
+final videoUploadController = Get.put(VideoUploadController());
 
 class _AddCaptionScreenState extends State<AddCaptionScreen> {
   @override
@@ -81,7 +84,13 @@ class _AddCaptionScreenState extends State<AddCaptionScreen> {
                       height: 05,
                     ),
                     TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        videoUploadController.uploadVideo(
+                          musicController.text,
+                          captionController.text,
+                          widget.videoPath,
+                        );
+                      },
                       icon: const Icon(Icons.upload_file_rounded),
                       label: const Text("Upload"),
                     ),
